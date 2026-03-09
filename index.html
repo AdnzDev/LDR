@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDR FE97 | Mídia Kit & Portfólio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --primary-color: #ff4500; /* Laranja/Vermelho Free Fire */
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --card-bg: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section (Capa) */
+        .hero {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 1px solid #333;
+            display: flex; /* Adicionado para centralizar a imagem */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* NOVOS ESTILOS PARA A FOTO DE PERFIL */
+        .profile-pic-container {
+            margin-bottom: 2rem; /* Espaço para o nome */
+            width: 180px; /* Tamanho do círculo */
+            height: 180px;
+            border-radius: 50%; /* Cortar em um círculo */
+            overflow: hidden; /* Cortar a imagem em excesso */
+            border: 4px solid var(--primary-color); /* Borda laranja neon */
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6); /* Sombra mais forte */
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Centraliza a silhueta e preenche sem distorcer, mantendo a silhueta no centro */
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            margin-bottom: 0.5rem; /* Margem reduzida */
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem; /* Margem reduzida */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Seção de Redes Sociais (Links) */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .social-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Cores específicas dos ícones */
+        .fa-instagram { color: #E1306C; }
+        .fa-tiktok { color: #fff; }
+        .fa-youtube { color: #FF0000; }
+        .fa-discord { color: #5865F2; }
+
+        /* Destaque GG Xtreino */
+        .xtreino-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a0800 100%);
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .xtreino-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc3700;
+            transform: scale(1.05);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .social-btn { width: 100%; }
+            .xtreino-section { padding: 2rem 1rem; }
+            /* Ajuste para a foto em telas menores */
+            .profile-pic-container { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="hero">
+            <div class="profile-pic-container">
+                <img src="image_0.png" alt="LDR FE97 Perfil" class="profile-pic">
+            </div>
+            <h1>LDR <span>FE97</span></h1>
+            <p>Criador de Conteúdo Multiplataforma & Idealizador do GG Xtreino.</p>
+            <p style="font-size: 0.9rem; margin-top: 10px;">Subindo capa e entregando o melhor do cenário de Free Fire.</p>
+        </header>
+
+        <section style="padding: 4rem 0;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Minhas Redes</h2>
+            <div class="social-links">
+                <a href="https://www.instagram.com/ldr.fe97?igsh=MTI1d3dtdnRyMXF2bA==" target="_blank" class="social-btn">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.tiktok.com/@ldr.fe97?_r=1&_t=ZS-94XgYzZP4B6" target="_blank" class="social-btn">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </a>
+                <a href="https://youtube.com/@ldr.fe97?si=UE7fG-UeJJ3r-mGm" target="_blank" class="social-btn">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+                <a href="https://www.kwai.com/@ldr.fe97" target="_blank" class="social-btn">
+                    <i class="fas fa-video"></i> Kwai
+                </a>
+            </div>
+        </section>
+
+        <section class="xtreino-section">
+            <h2>GG Xtreino</h2>
+            <p>Mais do que gameplay, fomentamos o cenário competitivo. Junte-se ao nosso servidor do Discord, participe de treinos de alto nível e conecte-se com a comunidade.</p>
+            <a href="https://discord.com/invite/Eh6VnSZWqA" target="_blank" class="btn-primary">
+                <i class="fab fa-discord"></i> Entrar no Discord
+            </a>
+        </section>
+    </div>
+
+</body>
+</html>
