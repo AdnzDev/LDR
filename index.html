@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDR FE97 | Mídia Kit & Portfólio</title>
+    <title>LDR FE97</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
@@ -24,9 +24,22 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            /* O fundo agora é gerado pelo Canvas, então removemos a cor fixa daqui para evitar sobreposição errada */
             color: var(--text-light);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- CONFIGURAÇÃO DO CANVAS NO FUNDO --- */
+        #ffCanvas {
+            display: block;
+            position: fixed; /* Fica fixo na tela mesmo rolando a página */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Joga para trás de tudo */
+            pointer-events: none; /* Permite que os cliques passem pelo canvas e acertem os botões */
         }
 
         /* Container Principal */
@@ -34,33 +47,36 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            position: relative; /* Garante que fique acima do canvas */
+            z-index: 1;
         }
 
         /* Hero Section (Capa) */
         .hero {
             text-align: center;
             padding: 5rem 0;
-            border-bottom: 1px solid #333;
-            display: flex; /* Adicionado para centralizar a imagem */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* NOVOS ESTILOS PARA A FOTO DE PERFIL */
+        /* Foto de Perfil */
         .profile-pic-container {
-            margin-bottom: 2rem; /* Espaço para o nome */
-            width: 180px; /* Tamanho do círculo */
+            margin-bottom: 2rem;
+            width: 180px;
             height: 180px;
-            border-radius: 50%; /* Cortar em um círculo */
-            overflow: hidden; /* Cortar a imagem em excesso */
-            border: 4px solid var(--primary-color); /* Borda laranja neon */
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6); /* Sombra mais forte */
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+            background-color: var(--card-bg); /* Fundo caso a imagem demore a carregar */
         }
 
         .profile-pic {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Centraliza a silhueta e preenche sem distorcer, mantendo a silhueta no centro */
+            object-fit: cover;
         }
 
         .hero h1 {
@@ -69,17 +85,15 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-light);
-            margin-bottom: 0.5rem; /* Margem reduzida */
+            margin-bottom: 0.5rem;
         }
 
-        .hero h1 span {
-            color: var(--primary-color);
-        }
+        /* Removido o estilo específico do span para unificar a cor */
 
         .hero p {
             font-size: 1.2rem;
             color: var(--text-muted);
-            margin-top: 0.5rem; /* Margem reduzida */
+            margin-top: 0.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -98,14 +112,15 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background-color: var(--card-bg);
+            background-color: rgba(26, 26, 26, 0.85); /* Leve transparência para ver as partículas passando atrás */
+            backdrop-filter: blur(5px); /* Efeito de vidro borrado */
             color: var(--text-light);
             padding: 15px 30px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             min-width: 200px;
             justify-content: center;
         }
@@ -114,6 +129,7 @@
             border-color: var(--primary-color);
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+            background-color: rgba(26, 26, 26, 1);
         }
 
         .social-btn i {
@@ -128,7 +144,8 @@
 
         /* Destaque GG Xtreino */
         .xtreino-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a0800 100%);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 8, 0, 0.9) 100%);
+            backdrop-filter: blur(5px);
             border: 1px solid var(--primary-color);
             border-radius: 12px;
             padding: 3rem;
@@ -152,6 +169,8 @@
             font-size: 1.1rem;
             margin-top: 1.5rem;
             transition: 0.3s;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
@@ -164,21 +183,22 @@
             .hero h1 { font-size: 2.5rem; }
             .social-btn { width: 100%; }
             .xtreino-section { padding: 2rem 1rem; }
-            /* Ajuste para a foto em telas menores */
             .profile-pic-container { width: 150px; height: 150px; }
         }
     </style>
 </head>
 <body>
 
+    <canvas id="ffCanvas"></canvas>
+
     <div class="container">
         <header class="hero">
             <div class="profile-pic-container">
                 <img src="image_0.png" alt="LDR FE97 Perfil" class="profile-pic">
             </div>
-            <h1>LDR <span>FE97</span></h1>
+            <h1>LDR FE97</h1>
             <p>Criador de Conteúdo Multiplataforma & Idealizador do GG Xtreino.</p>
-            <p style="font-size: 0.9rem; margin-top: 10px;">Subindo capa e entregando o melhor do cenário de Free Fire.</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #ccc;">Subindo capa e entregando o melhor do cenário de Free Fire.</p>
         </header>
 
         <section style="padding: 4rem 0;">
@@ -208,5 +228,123 @@
         </section>
     </div>
 
+    <script>
+        const canvas = document.getElementById('ffCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height;
+            }
+
+            reset() {
+                this.type = Math.random() > 0.6 ? 'coin' : 'bullet';
+                this.x = Math.random() * width;
+                this.y = -50 - Math.random() * 100;
+                
+                if (this.type === 'coin') {
+                    this.size = Math.random() * 6 + 4;
+                    this.vy = Math.random() * 1.5 + 0.8;
+                    this.vx = (Math.random() - 0.5) * 1;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotSpeed = (Math.random() - 0.5) * 0.15;
+                } else {
+                    this.size = Math.random() * 15 + 10;
+                    this.width = Math.random() * 2 + 1.5;
+                    this.vy = Math.random() * 8 + 6;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.color = Math.random() > 0.5 ? '#ff4500' : '#ff7300';
+                }
+            }
+
+            update() {
+                this.y += this.vy;
+                this.x += this.vx;
+
+                if (this.type === 'coin') {
+                    this.rotation += this.rotSpeed;
+                }
+
+                if (this.y > height + 50 || this.x < -50 || this.x > width + 50) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                
+                if (this.type === 'coin') {
+                    ctx.rotate(this.rotation);
+                    let scaleX = Math.abs(Math.sin(this.rotation)); 
+                    ctx.scale(scaleX, 1);
+
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = '#FFD700';
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#B8860B';
+                    ctx.fill();
+                    
+                    if (scaleX > 0.2) {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, this.size * 0.55, 0, Math.PI * 2);
+                        ctx.strokeStyle = '#DAA520';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+
+                } else {
+                    let angle = Math.atan2(this.vy, this.vx);
+                    ctx.rotate(angle);
+
+                    ctx.beginPath();
+                    ctx.moveTo(-this.size, 0);
+                    ctx.lineTo(this.size, 0);
+                    
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = this.width;
+                    ctx.lineCap = 'round';
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = this.color;
+                    ctx.stroke();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        // Quantidade de partículas rodando de fundo
+        const totalParticles = 100;
+        for (let i = 0; i < totalParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            // Fundo dinâmico pintado via JS para criar o rastro
+            ctx.fillStyle = 'rgba(13, 13, 13, 0.4)';
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
